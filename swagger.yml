@@ -1,0 +1,67 @@
+swagger: "2.0"
+info:
+  description: This is the swagger file that goes with our server code
+  version: "1.0.0"
+  title: Swagger Rest Article
+consumes:
+  - application/json
+produces:
+  - application/json
+
+# basePath: /api
+
+paths:
+  /{link_id}:
+    get:
+      operationId: link.open_link
+      tags:
+        - Links
+      summary: Open short link (with redirect to original host)
+      description: Open short link, save analytics data from user, perform redirect to original host.
+      parameters:
+        - name: link_id
+          in: path
+          description: Id of the link to open (redirect)
+          type: string
+          required: true
+      responses:
+        301:
+          description: Successfully opened redirected to original URL.
+
+  /create:
+    post:
+      operationId: link.create_link
+      tags:
+        - Links
+      summary: Create short link for given URL
+      description: Create short link for given URL, output ID can be used to open it
+      parameters:
+        - name: link
+          in: body
+          description: A link record to create
+          required: true
+          schema:
+            type: object
+            properties:
+              original_url:
+                type: string
+                description: URL to which request should be redirected
+      responses:
+        201:
+          description: Successfully created link
+          schema:
+            properties:
+              id:
+                type: string
+                description: id of the link which can be used to open it using root path
+              original_url:
+                type: string
+                description: provided original URL
+              created_at:
+                type: string
+                description: Creation timestamp
+              view_count:
+                type: integer
+                description: View counter (how much time the link were requested)
+
+

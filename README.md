@@ -1,2 +1,2 @@
-# py-link-server
-Simple URL shortener server written in Python using Flask as API server.
+# PyLinkServer
+Simple URL shortener server written in Python using Flask. Allows you to create/open generated short URLs.
